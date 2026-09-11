@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "UPI on AWS",
+      "hasCanvas": false,
+      "bodyTextLen": 95,
+      "bodyTextHash": "d872a8d7e2d803bd8db7bba5976be062457cbad13d92247abdd5d64bdbfae2b5",
+      "bodyTextPrefix": "UPI on AWS — If UPI Were Built Entirely on AWS SYSTEM BOOT UPI o",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "UPI on AWS",
+      "hasCanvas": false,
+      "bodyTextLen": 95,
+      "bodyTextHash": "d872a8d7e2d803bd8db7bba5976be062457cbad13d92247abdd5d64bdbfae2b5",
+      "bodyTextPrefix": "UPI on AWS — If UPI Were Built Entirely on AWS SYSTEM BOOT UPI o",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

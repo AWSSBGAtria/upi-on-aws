@@ -1,0 +1,878 @@
+Build an extremely high-end, cinematic, immersive 3D web experience for a technical project called:
+
+"UPI on AWS"
+Subtitle: "If UPI Were Built Entirely on AWS"
+
+IMPORTANT:
+This is NOT a conventional SaaS landing page.
+This is NOT a dashboard.
+This is NOT a static architecture diagram.
+
+The website should feel like an interactive digital twin of a massive distributed payment infrastructure, presented as a premium technical visualization experience.
+
+The primary goal is to let a visitor physically explore a large-scale 3D representation of a UPI-like payment architecture reimagined using AWS services.
+
+The experience should communicate:
+- distributed systems
+- payment processing
+- cloud architecture
+- security
+- scalability
+- asynchronous communication
+- observability
+- high availability
+- real-time transaction flow
+
+Use the project information below as the source of truth:
+
+CORE PROJECT:
+An interactive, animated 3D model visualizing India's UPI as if architected on AWS.
+
+CORE INTERACTIONS:
+- Orbit around the architecture
+- Zoom deeply into individual components
+- Click components to inspect them
+- Watch transactions flow through the architecture
+- Visualize initiation, authentication, routing, settlement and confirmation
+- Map system components to AWS equivalents
+- Display cost annotations
+- Show high-level topology
+- Represent load balancing, auto-scaling, multi-AZ deployment, disaster recovery and encryption layers
+
+ARCHITECTURE LAYERS:
+1. Payment Processing
+   - AWS Lambda
+   - Amazon DynamoDB
+   - Amazon SQS
+
+2. Security & Authentication
+   - Amazon Cognito
+   - AWS KMS
+   - AWS WAF
+   - Certificate-based 2FA flows
+
+3. API & Routing
+   - Amazon API Gateway
+   - Amazon Route 53
+   - Amazon CloudFront
+
+4. Monitoring & Analytics
+   - Amazon CloudWatch
+   - AWS X-Ray
+   - Amazon QuickSight
+
+TECHNOLOGIES:
+- Three.js
+- WebGL
+- React
+- D3.js
+- GSAP
+
+--------------------------------------------------
+VISUAL DIRECTION
+--------------------------------------------------
+
+Create a visually spectacular combination of:
+
+- cinematic 3D infrastructure visualization
+- futuristic cloud computing environment
+- realistic volumetric lighting
+- physically inspired materials
+- glass and translucent surfaces
+- metallic architectural structures
+- glowing network paths
+- animated data particles
+- subtle atmospheric fog
+- depth of field
+- realistic shadows
+- bloom
+- reflections
+- ambient occlusion
+- volumetric light beams
+- realistic scale
+- premium motion design
+
+The result should feel closer to an interactive visualization created for:
+- AWS re:Invent
+- Apple product visualization
+- NVIDIA technical demos
+- high-end enterprise architecture visualization
+- futuristic infrastructure control rooms
+
+Avoid:
+- childish 3D
+- generic neon cyberpunk
+- excessive gradients
+- random floating cubes
+- meaningless decorative particles
+- flat cards everywhere
+- stock illustrations
+- cartoon graphics
+- generic AI-generated UI
+- excessive glassmorphism
+- template-looking layouts
+
+The 3D architecture must be the HERO of the experience.
+
+--------------------------------------------------
+GLOBAL EXPERIENCE
+--------------------------------------------------
+
+The entire website should feel like entering a gigantic digital infrastructure.
+
+Start with a black/dark cinematic environment.
+
+As the page loads:
+
+1. The camera starts extremely far away.
+2. A gigantic distributed architecture slowly becomes visible.
+3. Individual infrastructure layers illuminate sequentially.
+4. Network connections activate.
+5. Data particles begin moving through the architecture.
+6. The camera slowly approaches the system.
+7. The title appears:
+
+   UPI
+   ON AWS
+
+   "If UPI Were Built Entirely on AWS"
+
+8. A subtle instruction appears:
+
+   "Drag to explore"
+   "Scroll to navigate"
+   "Click any component"
+
+Do NOT immediately reveal the entire UI.
+
+Create a sense of discovery.
+
+--------------------------------------------------
+3D ARCHITECTURE
+--------------------------------------------------
+
+Build a genuinely large 3D architecture, not a 2D diagram placed inside a 3D scene.
+
+Represent the infrastructure as a spatial system.
+
+Create distinct zones:
+
+CLIENT / USER LAYER
+        ↓
+API / EDGE LAYER
+        ↓
+AUTHENTICATION
+        ↓
+PAYMENT PROCESSING
+        ↓
+MESSAGE QUEUES
+        ↓
+DATABASE / LEDGER
+        ↓
+SETTLEMENT
+        ↓
+ANALYTICS / OBSERVABILITY
+
+Use physical depth between layers.
+
+Components should have unique 3D identities.
+
+Examples:
+
+API Gateway:
+- central gateway structure
+- multiple incoming connections
+- animated request pulses
+
+Lambda:
+- clusters of small compute nodes
+- dynamically appearing execution instances
+- instances should scale visually under load
+
+DynamoDB:
+- large distributed database structure
+- multiple storage nodes
+- synchronized data pulses
+
+SQS:
+- visible message queue
+- messages represented by glowing packets
+- packets should queue, move and disappear after processing
+
+Cognito:
+- secure authentication chamber
+- identity verification visualization
+
+KMS:
+- encryption module
+- rotating cryptographic visualization
+
+WAF:
+- protective perimeter layer
+- malicious requests visually intercepted
+
+CloudFront:
+- distributed edge nodes surrounding the architecture
+- traffic routed toward geographically distributed nodes
+
+Route 53:
+- intelligent routing visualization
+- requests dynamically redirected
+
+CloudWatch:
+- floating monitoring nodes
+- real-time metrics
+
+X-Ray:
+- transaction tracing system
+- individual transaction path highlighted across multiple services
+
+QuickSight:
+- floating analytics visualization connected to the infrastructure
+
+--------------------------------------------------
+TRANSACTION VISUALIZATION
+--------------------------------------------------
+
+This is one of the most important features.
+
+Create a "LIVE TRANSACTION SIMULATION" mode.
+
+A transaction should appear as a highly visible data packet.
+
+For example:
+
+USER
+↓
+API GATEWAY
+↓
+AUTHENTICATION
+↓
+ROUTING
+↓
+LAMBDA
+↓
+SQS
+↓
+DYNAMODB
+↓
+SETTLEMENT
+↓
+CONFIRMATION
+↓
+USER
+
+Animate the packet traveling through the infrastructure.
+
+Each hop should trigger:
+
+- node illumination
+- particle effects
+- connection pulses
+- subtle camera emphasis
+- status update
+- latency indicator
+- processing animation
+
+Display a small live transaction console:
+
+TRANSACTION #UPI-28471
+
+Status:
+AUTHENTICATING
+ROUTING
+PROCESSING
+SETTLING
+CONFIRMED
+
+Include:
+Latency
+Request ID
+Processing time
+Services traversed
+Region
+Status
+
+Make these values simulated and clearly presented as a visualization.
+
+Never imply these are real UPI transactions.
+
+--------------------------------------------------
+MULTIPLE TRANSACTION MODES
+--------------------------------------------------
+
+Add controls:
+
+[ SIMULATE PAYMENT ]
+
+[ HIGH TRAFFIC ]
+
+[ FAILURE TEST ]
+
+[ TRACE TRANSACTION ]
+
+When "SIMULATE PAYMENT" is selected:
+Generate a complete transaction path.
+
+When "HIGH TRAFFIC" is selected:
+Generate hundreds of transaction particles.
+
+The architecture should visibly scale.
+
+Lambda instances should multiply.
+Queues should fill.
+Traffic should distribute.
+Edge nodes should receive more traffic.
+Monitoring metrics should increase.
+
+When "FAILURE TEST" is selected:
+Simulate failure of one component.
+
+For example:
+
+DynamoDB node failure
+or
+Lambda instance failure
+or
+availability-zone failure
+
+Show:
+
+NODE FAILURE
+↓
+TRAFFIC REDISTRIBUTION
+↓
+FAILOVER
+↓
+RECOVERY
+
+Visually demonstrate resilience.
+
+Do not make this destructive or connected to any real infrastructure.
+
+--------------------------------------------------
+INTERACTIVE COMPONENT INSPECTION
+--------------------------------------------------
+
+Every major 3D component must be clickable.
+
+On click:
+
+- pause nearby animations
+- smoothly move the camera toward the component
+- highlight the selected infrastructure
+- dim unrelated components
+- open an elegant information panel
+
+Panel example:
+
+AMAZON LAMBDA
+
+ROLE
+Serverless compute for transaction processing.
+
+BEHAVIOR
+Event-driven execution.
+
+SCALING
+Automatically scales with incoming workload.
+
+CONNECTED SERVICES
+API Gateway
+SQS
+DynamoDB
+
+SIMULATION
+Active
+
+LATENCY
+12 ms
+
+Make this panel contextual and dynamic.
+
+Do not make every component look like a generic card.
+
+--------------------------------------------------
+CAMERA SYSTEM
+--------------------------------------------------
+
+Implement professional cinematic camera movement.
+
+Support:
+
+- orbit
+- pan
+- zoom
+- focus
+- smooth transitions
+- predefined camera paths
+- cinematic fly-throughs
+
+Add predefined views:
+
+[ OVERVIEW ]
+[ PAYMENT FLOW ]
+[ SECURITY ]
+[ DATA LAYER ]
+[ OBSERVABILITY ]
+[ HIGH AVAILABILITY ]
+
+Selecting a view should smoothly animate the camera into position.
+
+Never instantly teleport the camera.
+
+Use easing and cinematic transitions.
+
+--------------------------------------------------
+SCROLL-DRIVEN STORYTELLING
+--------------------------------------------------
+
+Build the experience around scroll-driven narrative sections.
+
+SECTION 01:
+"THE PAYMENT"
+
+Show a single transaction moving through the system.
+
+SECTION 02:
+"THE EDGE"
+
+Zoom into:
+CloudFront
+Route 53
+API Gateway
+
+SECTION 03:
+"THE PROCESSING LAYER"
+
+Zoom into:
+Lambda
+SQS
+DynamoDB
+
+SECTION 04:
+"THE SECURITY LAYER"
+
+Show:
+Cognito
+KMS
+WAF
+2FA flows
+
+SECTION 05:
+"THE DISTRIBUTED SYSTEM"
+
+Reveal:
+load balancing
+multi-AZ deployment
+auto scaling
+disaster recovery
+
+SECTION 06:
+"OBSERVABILITY"
+
+Show:
+CloudWatch
+X-Ray
+QuickSight
+
+SECTION 07:
+"THE COMPLETE SYSTEM"
+
+Zoom back out and reveal the entire architecture.
+
+The final view should make the user understand how all components connect.
+
+--------------------------------------------------
+HIGH AVAILABILITY VISUALIZATION
+--------------------------------------------------
+
+Represent multiple Availability Zones spatially.
+
+Example:
+
+REGION
+
+├── AZ-01
+├── AZ-02
+└── AZ-03
+
+Show duplicated infrastructure.
+
+During normal operation:
+Traffic distributes across zones.
+
+During failure simulation:
+One zone goes offline.
+
+Its infrastructure should physically dim or disappear.
+
+Traffic should automatically reroute toward healthy zones.
+
+Show a small status indicator:
+
+AZ-01
+OPERATIONAL
+
+AZ-02
+DEGRADED
+
+AZ-03
+OPERATIONAL
+
+Then visually demonstrate recovery.
+
+--------------------------------------------------
+REAL-TIME METRICS
+--------------------------------------------------
+
+Create a small floating observability HUD.
+
+Metrics should be simulated, not real:
+
+REQUESTS / SEC
+ACTIVE TRANSACTIONS
+AVERAGE LATENCY
+SUCCESS RATE
+QUEUE DEPTH
+COMPUTE INSTANCES
+ERROR RATE
+
+Animate numbers smoothly.
+
+Add tiny real-time graphs.
+
+Graphs should react to simulated traffic.
+
+--------------------------------------------------
+COST VISUALIZATION
+--------------------------------------------------
+
+Because the project includes AWS service mapping with cost annotations, add an optional:
+
+"COST VIEW"
+
+When enabled, components display simulated architecture cost annotations.
+
+For example:
+
+LAMBDA
+Compute
+
+DYNAMODB
+Database
+
+SQS
+Messaging
+
+CLOUDFRONT
+Edge Delivery
+
+Clearly label these as:
+"Illustrative / simulated"
+
+Do not claim actual UPI infrastructure costs.
+
+--------------------------------------------------
+DESIGN SYSTEM
+--------------------------------------------------
+
+Use a premium dark infrastructure aesthetic.
+
+Background:
+Almost-black / deep navy.
+
+Primary UI:
+Dark graphite.
+
+Text:
+White and cool gray.
+
+Accent:
+AWS-inspired orange used sparingly.
+
+Secondary accents:
+subtle cyan / electric blue for data flows.
+
+Use color semantically:
+
+ORANGE
+AWS / system infrastructure
+
+BLUE
+Network traffic
+
+GREEN
+Healthy / successful
+
+RED
+Failure / threat
+
+PURPLE
+Analytics / observability
+
+Do not make the entire page orange.
+
+--------------------------------------------------
+TYPOGRAPHY
+--------------------------------------------------
+
+Use a premium modern grotesk / technical typeface.
+
+Large typography should feel editorial and architectural.
+
+Use:
+- extremely large headlines
+- compact technical labels
+- monospace for IDs, metrics and system logs
+- generous spacing
+
+Avoid generic startup typography.
+
+--------------------------------------------------
+UI
+--------------------------------------------------
+
+The UI should stay minimal because the 3D visualization is the main experience.
+
+Persistent controls:
+
+TOP LEFT:
+UPI ON AWS
+
+TOP RIGHT:
+[ EXPLORE ]
+[ SIMULATE ]
+[ ARCHITECTURE ]
+[ ABOUT ]
+
+BOTTOM:
+[ Orbit ]
+[ Zoom ]
+[ Reset ]
+[ Fullscreen ]
+
+Optional:
+[ Performance Mode ]
+
+--------------------------------------------------
+PERFORMANCE
+--------------------------------------------------
+
+This is extremely important.
+
+The website must remain highly interactive.
+
+Use:
+- Three.js
+- WebGL
+- instancing where appropriate
+- efficient geometry
+- GPU-friendly particles
+- lazy loading
+- level-of-detail techniques
+- throttled simulation
+- requestAnimationFrame
+- adaptive rendering quality
+
+Detect device performance.
+
+If the device is powerful:
+Enable maximum visual quality.
+
+If the device is weaker:
+Reduce:
+- particle count
+- shadows
+- post-processing
+- geometry complexity
+
+But preserve the architecture and interactions.
+
+Provide a "Performance Mode" toggle.
+
+--------------------------------------------------
+RESPONSIVE EXPERIENCE
+--------------------------------------------------
+
+Desktop:
+Full immersive 3D experience.
+
+Tablet:
+Simplified architecture and controls.
+
+Mobile:
+Do not attempt to force the entire desktop architecture into the viewport.
+
+Instead:
+- simplify the 3D model
+- preserve transaction simulation
+- preserve component inspection
+- use touch gestures
+- provide accessible navigation
+
+--------------------------------------------------
+LOADING EXPERIENCE
+--------------------------------------------------
+
+Create a sophisticated loading screen.
+
+Display:
+
+INITIALIZING ARCHITECTURE
+LOADING COMPUTE NODES
+ESTABLISHING NETWORK
+INITIALIZING DATA LAYER
+STARTING SIMULATION
+
+Then:
+
+SYSTEM READY
+
+Use animated progress indicators.
+
+Avoid generic percentage loaders.
+
+--------------------------------------------------
+MICRO-INTERACTIONS
+--------------------------------------------------
+
+Everything should feel alive.
+
+Examples:
+
+Hovering a component:
+- slight scale
+- emissive glow
+- connection lines brighten
+- tooltip appears
+
+Clicking:
+- camera moves toward component
+- component expands
+- connected components illuminate
+
+Hovering a connection:
+- data flow accelerates
+- route becomes highlighted
+
+Starting a transaction:
+- entire route lights up sequentially
+
+Failure:
+- warning pulse
+- affected nodes dim
+- traffic reroutes
+
+Recovery:
+- node powers back up
+- connections reconnect
+- traffic resumes
+
+--------------------------------------------------
+AUDIO
+--------------------------------------------------
+
+If supported, optionally include extremely subtle ambient system sounds.
+
+Examples:
+- low server hum
+- subtle interface clicks
+- soft confirmation sound
+- notification sound during transaction completion
+
+Audio must be OFF by default or require user interaction.
+
+Never make it annoying.
+
+--------------------------------------------------
+ACCESSIBILITY
+--------------------------------------------------
+
+Despite being a 3D experience, provide accessible alternatives.
+
+Include:
+- keyboard navigation
+- reduced-motion mode
+- accessible component list
+- text descriptions
+- semantic HTML
+- sufficient contrast
+
+A user should be able to understand the architecture without relying exclusively on 3D.
+
+--------------------------------------------------
+ABOUT SECTION
+--------------------------------------------------
+
+Create a final section:
+
+"WHY THIS EXISTS"
+
+Explain that the project is an architectural visualization designed to make complex distributed systems tangible, explorable and understandable.
+
+Keep the explanation concise and technical.
+
+Include:
+
+Interactive 3D Model
+Animated Data Flows
+AWS Service Mapping
+High-Level Architecture
+
+--------------------------------------------------
+FINAL EXPERIENCE
+--------------------------------------------------
+
+The website should feel like a technical exhibition piece rather than a marketing website.
+
+The first 10 seconds should create a strong "WOW" effect.
+
+The user should immediately understand:
+
+"I am looking at a living 3D model of a massive payment infrastructure."
+
+The architecture should feel:
+- enormous
+- complex
+- intelligent
+- distributed
+- alive
+- resilient
+
+The most important visual hierarchy is:
+
+1. 3D architecture
+2. transaction flow
+3. interaction
+4. system information
+5. UI
+
+NOT:
+
+1. text
+2. cards
+3. buttons
+4. 3D decoration
+
+Build the experience as a polished production-quality interactive visualization.
+
+Do not produce a static mockup.
+
+Do not fake the 3D effect using CSS cards.
+
+Use actual WebGL / Three.js 3D objects and spatial relationships.
+
+Use real animation systems.
+
+Use realistic lighting.
+
+Use physically meaningful connections between components.
+
+Every animation should communicate something about the architecture.
+
+Every interaction should reveal information.
+
+Every visual element should serve the technical narrative.
+
+The final result should be something that can be demonstrated at a technology exhibition and immediately stand out from ordinary student project websites.
