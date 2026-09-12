@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { NODES, STORY, VIEWS } from "./architecture";
+import { HOP_STATUS, NODES, PAYMENT_HOPS, STORY, VIEWS } from "./architecture";
 import { flyTo } from "./camera";
-import { resetRuntimeVisuals, runtime } from "./runtime";
+import { pulse, resetRuntimeVisuals, runtime } from "./runtime";
 import type {
   AzId,
   AzState,
@@ -10,6 +10,7 @@ import type {
   NodeId,
   Phase,
   SimMode,
+  Theme,
   TxConsole,
   ViewId,
 } from "./types";
@@ -81,6 +82,19 @@ export type ExperienceState = {
   history: Record<keyof Metrics, number[]>;
   azStatus: Record<AzId, AzState>;
   tx: TxConsole;
+  theme: Theme;
+  simSpeed: number;
+  simPaused: boolean;
+  motionTracking: boolean;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
+  setSimSpeed: (speed: number) => void;
+  setSimPaused: (paused: boolean) => void;
+  toggleSimPaused: () => void;
+  setMotionTracking: (enabled: boolean) => void;
+  toggleMotionTracking: () => void;
+  jumpToHop: (hopIndex: number) => void;
+  replaySim: () => void;
   setPhase: (phase: Phase) => void;
   setNav: (nav: NavId) => void;
   setSim: (mode: SimMode) => void;
@@ -129,6 +143,96 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
   history: emptyHistory(),
   azStatus: { "az-1": "OPERATIONAL", "az-2": "OPERATIONAL", "az-3": "OPERATIONAL" },
   tx: idleTx(),
+  theme:
+    typeof window !== "undefined" && localStorage.getItem("upi_theme") === "light"
+      ? "light"
+      : "dark",
+  simSpeed: 1,
+  simPaused: false,
+  motionTracking: true,
+  setTheme: (theme) => {
+    set({ theme });
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("upi_theme", theme);
+        document.documentElement.setAttribute("data-theme", theme);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "light" ? "#f6f8fb" : "#05070c");
+      } catch {
+        /* ignore storage or DOM errors in SSR */
+      }
+    }
+  },
+  toggleTheme: () => {
+    const next = get().theme === "dark" ? "light" : "dark";
+    get().setTheme(next);
+  },
+  setSimSpeed: (speed) => {
+    runtime.simSpeed = speed;
+    set({ simSpeed: speed });
+  },
+  setSimPaused: (paused) => {
+    runtime.simPaused = paused;
+    set({ simPaused: paused });
+  },
+  toggleSimPaused: () => {
+    const next = !get().simPaused;
+    runtime.simPaused = next;
+    set({ simPaused: next });
+  },
+  setMotionTracking: (enabled) => {
+    runtime.motionTracking = enabled;
+    set({ motionTracking: enabled });
+  },
+  toggleMotionTracking: () => {
+    const next = !get().motionTracking;
+    runtime.motionTracking = next;
+    set({ motionTracking: next });
+  },
+  jumpToHop: (hopIndex) => {
+    const hops = PAYMENT_HOPS.length;
+    const idx = Math.max(0, Math.min(hops - 1, hopIndex));
+    const t = idx / (hops - 1);
+    runtime.heroActive = true;
+    runtime.heroT = t;
+    runtime.heroHop = idx;
+    const id = PAYMENT_HOPS[idx];
+    pulse(id, 1);
+    if (id === "kms") runtime.heroEncrypted = true;
+    const servicesSoFar: string[] = [];
+    for (let h = 0; h <= idx; h++) {
+      const sName = NODES[PAYMENT_HOPS[h]].aws;
+      if (!servicesSoFar.includes(sName)) servicesSoFar.push(sName);
+    }
+    get().patchTx({
+      status: HOP_STATUS[idx],
+      services: servicesSoFar,
+      latency: Math.round(8 + idx * 3 + Math.random() * 4),
+      elapsed: Math.round(t * 240),
+    });
+  },
+  replaySim: () => {
+    runtime.heroActive = true;
+    runtime.heroT = 0;
+    runtime.heroHop = 0;
+    runtime.heroEncrypted = false;
+    runtime.heroAz = runtime.failedAz === "az-2" ? "az-1" : "az-2";
+    runtime.simPaused = false;
+    set({
+      simPaused: false,
+      tx: {
+        id: newTxId(),
+        status: "INITIATING",
+        latency: 0,
+        requestId: newReqId(),
+        elapsed: 0,
+        services: ["Client"],
+        region: "ap-south-1",
+        az: "ap-south-1b",
+      },
+    });
+    pulse("client", 1);
+  },
   setPhase: (phase) => set({ phase }),
   setNav: (nav) => {
     set({ nav, mobileMenu: false, helpOpen: false });
@@ -160,7 +264,9 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
     }
     set({ simMode: mode, nav: "simulate" });
     if (mode === "payment" || mode === "trace") {
+      runtime.simPaused = false;
       set({
+        simPaused: false,
         tx: {
           id: newTxId(),
           status: "INITIATING",

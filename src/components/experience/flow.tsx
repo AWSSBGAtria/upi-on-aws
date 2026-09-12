@@ -7,6 +7,7 @@ import {
   type Group,
   type InstancedMesh,
   MathUtils,
+  type Mesh,
   Object3D,
   type PointLight,
   Vector3,
@@ -62,6 +63,8 @@ type Particle = {
 
 export function Connections() {
   const group = useRef<Group>(null);
+  const theme = useExperienceStore((s) => s.theme);
+  const isLight = theme === "light";
   const lines = useMemo(() => {
     return CONNECTIONS.map(([a, b]) => {
       const pa = NODES[a].position;
@@ -93,13 +96,13 @@ export function Connections() {
   return (
     <group ref={group}>
       {lines.map((pts, i) => (
-        <Line key={i} points={pts} color="#3d5a73" lineWidth={1.1} transparent opacity={0.38} />
+        <Line key={i} points={pts} color={isLight ? "#64748b" : "#3d5a73"} lineWidth={1.1} transparent opacity={isLight ? 0.48 : 0.38} />
       ))}
       {cfLines.map((pts, i) => (
-        <Line key={`cf${i}`} points={pts} color="#7a5a22" lineWidth={0.8} transparent opacity={0.32} />
+        <Line key={`cf${i}`} points={pts} color={isLight ? "#b45309" : "#7a5a22"} lineWidth={0.8} transparent opacity={isLight ? 0.42 : 0.32} />
       ))}
       {azLinks.map((pts, i) => (
-        <Line key={`az${i}`} points={pts} color="#3ee0a0" lineWidth={0.9} transparent opacity={0.28} />
+        <Line key={`az${i}`} points={pts} color={isLight ? "#059669" : "#3ee0a0"} lineWidth={0.9} transparent opacity={isLight ? 0.38 : 0.28} />
       ))}
     </group>
   );
@@ -246,6 +249,15 @@ export function TransactionFlow() {
       else if (p.t > 0.82) col = c.green;
       mesh.current.setColorAt(i, col);
 
+      if (p.hero) {
+        runtime.heroPos[0] = _p.x;
+        runtime.heroPos[1] = _p.y;
+        runtime.heroPos[2] = _p.z;
+        runtime.heroTangent[0] = _t.x;
+        runtime.heroTangent[1] = _t.y;
+        runtime.heroTangent[2] = _t.z;
+      }
+
       if (p.hero && heroLight.current) {
         heroLight.current.position.copy(_p);
         heroLight.current.intensity = 3.2;
@@ -270,6 +282,58 @@ export function TransactionFlow() {
         />
       </instancedMesh>
       <pointLight ref={heroLight} color="#d8f4ff" intensity={0} distance={9} decay={2} />
+      <HeroTrackerBeacon />
+    </group>
+  );
+}
+
+function HeroTrackerBeacon() {
+  const group = useRef<Group>(null);
+  const ring1 = useRef<Mesh>(null);
+  const ring2 = useRef<Mesh>(null);
+  const motionTracking = useExperienceStore((s) => s.motionTracking);
+
+  useFrame((_, delta) => {
+    if (!group.current) return;
+    if (!runtime.heroActive) {
+      group.current.visible = false;
+      return;
+    }
+    group.current.visible = true;
+    const [x, y, z] = runtime.heroPos;
+    group.current.position.set(x, y, z);
+    if (ring1.current) {
+      ring1.current.rotation.z += delta * 2.6;
+    }
+    if (ring2.current) {
+      ring2.current.rotation.y += delta * 1.8;
+      const s = 1 + Math.sin(runtime.time * 6) * 0.12;
+      ring2.current.scale.set(s, s, s);
+    }
+  });
+
+  return (
+    <group ref={group} visible={false}>
+      {/* Horizontal glowing radar tracker ring */}
+      <mesh ref={ring1} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.55, 0.72, 32]} />
+        <meshBasicMaterial
+          color={motionTracking ? "#ff9900" : "#3db9ff"}
+          transparent
+          opacity={0.8}
+          depthWrite={false}
+        />
+      </mesh>
+      {/* Vertical tracking indicator */}
+      <mesh ref={ring2}>
+        <ringGeometry args={[0.35, 0.44, 24]} />
+        <meshBasicMaterial
+          color="#3ee0a0"
+          transparent
+          opacity={0.65}
+          depthWrite={false}
+        />
+      </mesh>
     </group>
   );
 }

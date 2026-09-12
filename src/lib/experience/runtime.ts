@@ -28,6 +28,11 @@ export const runtime = {
   fpsFrames: 0,
   fpsTime: 0,
   lowFpsStreak: 0,
+  simPaused: false,
+  simSpeed: 1,
+  motionTracking: true,
+  heroPos: [0, 3.1, 30] as [number, number, number],
+  heroTangent: [0, 0, -1] as [number, number, number],
 };
 
 export function pulse(id: string, amount = 1) {

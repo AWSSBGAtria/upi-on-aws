@@ -81,31 +81,34 @@ export function tickSimulation(dt: number) {
   runtime.lambdaShow = lerp(runtime.lambdaShow, want, 1 - Math.exp(-dt * 1.8));
 
   if (runtime.heroActive) {
-    const speed = state.simMode === "trace" ? 0.07 : 0.13;
-    const prevT = runtime.heroT;
-    runtime.heroT = Math.min(1, runtime.heroT + dt * speed);
-    const hops = PAYMENT_HOPS.length;
-    const hop = Math.min(hops - 1, Math.floor(runtime.heroT * (hops - 0.001)));
-    if (hop !== runtime.heroHop) {
-      runtime.heroHop = hop;
-      const id = PAYMENT_HOPS[hop];
-      pulse(id, 1);
-      if (id === "kms") runtime.heroEncrypted = true;
-      const node = NODES[id];
-      const services = [...state.tx.services];
-      if (!services.includes(node.aws)) services.push(node.aws);
-      state.patchTx({
-        status: HOP_STATUS[hop],
-        services,
-        latency: Math.round(8 + hop * 3 + Math.random() * 4),
-        elapsed: Math.round(runtime.heroT * 240),
-      });
-    }
-    if (prevT < 1 && runtime.heroT >= 1) {
-      state.patchTx({ status: "CONFIRMED", elapsed: 248, latency: 41 });
-      pulse("client", 1);
-      pulse("settlement", 1);
-      runtime.heroActive = false;
+    if (!state.simPaused && !runtime.simPaused) {
+      const baseSpeed = state.simMode === "trace" ? 0.07 : 0.13;
+      const speed = baseSpeed * (state.simSpeed || 1);
+      const prevT = runtime.heroT;
+      runtime.heroT = Math.min(1, runtime.heroT + dt * speed);
+      const hops = PAYMENT_HOPS.length;
+      const hop = Math.min(hops - 1, Math.floor(runtime.heroT * (hops - 0.001)));
+      if (hop !== runtime.heroHop) {
+        runtime.heroHop = hop;
+        const id = PAYMENT_HOPS[hop];
+        pulse(id, 1);
+        if (id === "kms") runtime.heroEncrypted = true;
+        const node = NODES[id];
+        const services = [...state.tx.services];
+        if (!services.includes(node.aws)) services.push(node.aws);
+        state.patchTx({
+          status: HOP_STATUS[hop],
+          services,
+          latency: Math.round(8 + hop * 3 + Math.random() * 4),
+          elapsed: Math.round(runtime.heroT * 240),
+        });
+      }
+      if (prevT < 1 && runtime.heroT >= 1) {
+        state.patchTx({ status: "CONFIRMED", elapsed: 248, latency: 41 });
+        pulse("client", 1);
+        pulse("settlement", 1);
+        runtime.heroActive = false;
+      }
     }
   }
 

@@ -17,10 +17,39 @@ export function CameraRig() {
   const phase = useExperienceStore((s) => s.phase);
   const storyIndex = useExperienceStore((s) => s.storyIndex);
   const nav = useExperienceStore((s) => s.nav);
+  const motionTracking = useExperienceStore((s) => s.motionTracking);
 
-  useFrame(({ camera }) => {
+  useFrame(({ camera }, delta) => {
+    const dt = Math.min(delta, 0.1);
     const storyLock = phase !== "ready" || nav === "architecture" || (!exploreEnabled && storyIndex > 0);
-    const locked = runtime.cameraLock || !!selected || storyLock;
+    const isHeroTracking = runtime.heroActive && motionTracking && !selected;
+    const locked = runtime.cameraLock || !!selected || storyLock || isHeroTracking;
+
+    if (isHeroTracking) {
+      const [hx, hy, hz] = runtime.heroPos;
+      const k = 1 - Math.exp(-dt * 4.2);
+      const targetY = hy + 0.4;
+      camGoal.target.x += (hx - camGoal.target.x) * k;
+      camGoal.target.y += (targetY - camGoal.target.y) * k;
+      camGoal.target.z += (hz - camGoal.target.z) * k;
+
+      const desiredX = hx + 8.2;
+      const desiredY = hy + 6.0;
+      const desiredZ = hz + 10.2;
+
+      camGoal.position.x += (desiredX - camGoal.position.x) * k;
+      camGoal.position.y += (desiredY - camGoal.position.y) * k;
+      camGoal.position.z += (desiredZ - camGoal.position.z) * k;
+
+      camera.position.set(camGoal.position.x, camGoal.position.y, camGoal.position.z);
+      camera.lookAt(camGoal.target.x, camGoal.target.y, camGoal.target.z);
+      if (controls.current) {
+        controls.current.target.set(camGoal.target.x, camGoal.target.y, camGoal.target.z);
+        controls.current.update();
+      }
+      return;
+    }
+
     if (controls.current) controls.current.enabled = !locked && exploreEnabled && phase === "ready";
     if (locked) {
       camera.position.set(camGoal.position.x, camGoal.position.y, camGoal.position.z);
