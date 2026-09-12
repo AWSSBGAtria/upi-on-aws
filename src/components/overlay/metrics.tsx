@@ -71,7 +71,7 @@ export function AzStatus() {
     { id: "az-3" as const, label: "AZ-03" },
   ];
   return (
-    <div className="hit hud-panel absolute bottom-24 left-4 z-20 hidden p-3 md:block">
+    <div className="hit hud-panel absolute bottom-32 sm:bottom-28 left-4 z-20 hidden p-3 md:block">
       <p className="kicker mb-2">Availability</p>
       <ul className="space-y-1">
         {items.map((it) => {

@@ -3,7 +3,9 @@ import {
   Expand,
   HelpCircle,
   Menu,
+  Moon,
   RotateCcw,
+  Sun,
   Volume2,
   VolumeX,
   X,
@@ -41,6 +43,8 @@ export function TopBar() {
   const ui = useExperienceStore((s) => s.uiRevealed);
   const nav = useExperienceStore((s) => s.nav);
   const menu = useExperienceStore((s) => s.mobileMenu);
+  const theme = useExperienceStore((s) => s.theme);
+  const toggleTheme = useExperienceStore((s) => s.toggleTheme);
   if (!ui) return null;
   return (
     <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between px-4 pt-4">
@@ -61,14 +65,29 @@ export function TopBar() {
           </button>
         ))}
       </nav>
-      <button
-        type="button"
-        className="hit ctl md:hidden"
-        aria-label={menu ? "Close menu" : "Open menu"}
-        onClick={() => useExperienceStore.getState().setMobileMenu(!menu)}
-      >
-        {menu ? <X className="size-4" /> : <Menu className="size-4" />}
-      </button>
+      <div className="hit flex items-center gap-1">
+        <button
+          type="button"
+          className="ctl flex items-center gap-1.5"
+          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          onClick={() => {
+            blip("click");
+            toggleTheme();
+          }}
+        >
+          {theme === "dark" ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
+          <span className="hidden sm:inline">{theme === "dark" ? "Light" : "Dark"}</span>
+        </button>
+        <button
+          type="button"
+          className="ctl md:hidden"
+          aria-label={menu ? "Close menu" : "Open menu"}
+          onClick={() => useExperienceStore.getState().setMobileMenu(!menu)}
+        >
+          {menu ? <X className="size-4" /> : <Menu className="size-4" />}
+        </button>
+      </div>
     </header>
   );
 }
@@ -76,6 +95,8 @@ export function TopBar() {
 export function MobileMenu() {
   const menu = useExperienceStore((s) => s.mobileMenu);
   const nav = useExperienceStore((s) => s.nav);
+  const theme = useExperienceStore((s) => s.theme);
+  const toggleTheme = useExperienceStore((s) => s.toggleTheme);
   if (!menu) return null;
   return (
     <div className="hit hud-panel absolute top-16 right-4 left-4 z-40 p-3 md:hidden">
@@ -91,6 +112,20 @@ export function MobileMenu() {
             {n.label}
           </button>
         ))}
+      </div>
+      <div className="mt-3 pt-2.5 border-t border-line flex items-center justify-between">
+        <span className="kicker">Appearance</span>
+        <button
+          type="button"
+          className="ctl flex items-center gap-1.5"
+          onClick={() => {
+            blip("click");
+            toggleTheme();
+          }}
+        >
+          {theme === "dark" ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
+          <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+        </button>
       </div>
       <p className="kicker mt-3 mb-1">Simulate</p>
       <div className="grid grid-cols-2 gap-1">
@@ -239,7 +274,8 @@ export function BottomBar() {
 export function StoryRail() {
   const ui = useExperienceStore((s) => s.uiRevealed);
   const i = useExperienceStore((s) => s.storyIndex);
-  if (!ui) return null;
+  const nav = useExperienceStore((s) => s.nav);
+  if (!ui || nav !== "architecture") return null;
   return (
     <nav
       className="hit absolute top-1/2 left-3 z-20 hidden -translate-y-1/2 flex-col gap-1 lg:flex"
@@ -265,12 +301,19 @@ export function HoverTip() {
   const hovered = useExperienceStore((s) => s.hovered);
   const selected = useExperienceStore((s) => s.selected);
   const cost = useExperienceStore((s) => s.costView);
+  const sim = useExperienceStore((s) => s.simMode);
+  const tx = useExperienceStore((s) => s.tx);
   if (!hovered || hovered === selected) return null;
   const n = NODES[hovered];
+  const isSimActive = sim === "payment" || sim === "trace" || tx.status !== "IDLE";
   return (
-    <div className="pointer-events-none absolute top-20 left-1/2 z-20 -translate-x-1/2 text-center">
+    <div
+      className={`pointer-events-none absolute left-1/2 z-40 -translate-x-1/2 text-center rounded-md hud-panel px-3.5 py-1.5 shadow-md ${
+        isSimActive ? "bottom-36" : "top-20"
+      }`}
+    >
       <p className="kicker">{n.aws}</p>
-      <p className="text-[13px] text-fg">{n.name}</p>
+      <p className="text-[13px] font-medium text-fg">{n.name}</p>
       {cost ? <p className="text-[11px] text-muted">{n.costLabel} · illustrative</p> : null}
     </div>
   );

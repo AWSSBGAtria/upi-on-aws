@@ -22,6 +22,7 @@ dist/
 # Grok runtime status
 .grok/status
 .grok/og-pending
+.grok/*.pid
 
 # Cache and logs
 .eslintcache

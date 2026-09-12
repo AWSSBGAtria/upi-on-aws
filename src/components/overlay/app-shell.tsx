@@ -5,6 +5,7 @@ import { useExperienceStore } from "@/lib/experience/store";
 import { BottomBar, HoverTip, MobileMenu, StoryRail, TopBar } from "./chrome";
 import { LoadingScreen } from "./loading-screen";
 import { AzStatus, MetricsHud } from "./metrics";
+import { MotionTrackingHud } from "./motion-tracker";
 import {
   AboutPanel,
   ArchitectureDrawer,
@@ -27,6 +28,10 @@ export function AppShell() {
     const store = useExperienceStore.getState();
     if (reduced) store.setReducedMotion(true);
     if (isMobileViewport()) store.setPerformanceMode(true);
+    const currentTheme = store.theme;
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", currentTheme === "light" ? "#f6f8fb" : "#05070c");
   }, []);
 
   useEffect(() => {
@@ -66,7 +71,23 @@ export function AppShell() {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.code === "Space") {
         e.preventDefault();
-        s.setSim("payment");
+        if (s.simMode === "payment" || s.simMode === "trace") {
+          s.toggleSimPaused();
+        } else {
+          s.setSim("payment");
+        }
+      }
+      if (e.key === "l" || e.key === "L") s.toggleTheme();
+      if (e.key === "m" || e.key === "M") s.toggleMotionTracking();
+      if (e.key === "[" || e.key === "{") {
+        const speeds = [0.25, 0.5, 1, 2, 4];
+        const idx = speeds.indexOf(s.simSpeed);
+        if (idx > 0) s.setSimSpeed(speeds[idx - 1]);
+      }
+      if (e.key === "]" || e.key === "}") {
+        const speeds = [0.25, 0.5, 1, 2, 4];
+        const idx = speeds.indexOf(s.simSpeed);
+        if (idx < speeds.length - 1) s.setSimSpeed(speeds[idx + 1]);
       }
       if (e.key === "h" || e.key === "H") s.setSim("high-traffic");
       if (e.key === "f" || e.key === "F") s.setSim("failure");
@@ -129,6 +150,7 @@ export function AppShell() {
         <MetricsHud />
         <AzStatus />
         <HoverTip />
+        <MotionTrackingHud />
         <ComponentPanel />
         <AboutPanel />
         <ArchitectureDrawer />

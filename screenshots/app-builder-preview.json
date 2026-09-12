@@ -7,30 +7,32 @@
       "status": 200,
       "title": "UPI on AWS",
       "hasCanvas": false,
-      "bodyTextLen": 95,
-      "bodyTextHash": "d872a8d7e2d803bd8db7bba5976be062457cbad13d92247abdd5d64bdbfae2b5",
+      "bodyTextLen": 97,
+      "bodyTextHash": "5bae985ddcf887b29ae5d9123101dd7004eef4957da175eb9322f752f175ad15",
       "bodyTextPrefix": "UPI on AWS — If UPI Were Built Entirely on AWS SYSTEM BOOT UPI o",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+      "screenshot": "/home/darshan/Documents/GitHub/AWSCloudClubAtria/upi-on-aws/screenshots/app-builder-preview.png"
     },
     "mobile": {
       "width": 390,
       "height": 844,
       "status": 200,
       "title": "UPI on AWS",
-      "hasCanvas": false,
-      "bodyTextLen": 95,
-      "bodyTextHash": "d872a8d7e2d803bd8db7bba5976be062457cbad13d92247abdd5d64bdbfae2b5",
+      "hasCanvas": true,
+      "bodyTextLen": 97,
+      "bodyTextHash": "5bae985ddcf887b29ae5d9123101dd7004eef4957da175eb9322f752f175ad15",
       "bodyTextPrefix": "UPI on AWS — If UPI Were Built Entirely on AWS SYSTEM BOOT UPI o",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+      "screenshot": "/home/darshan/Documents/GitHub/AWSCloudClubAtria/upi-on-aws/screenshots/app-builder-preview-mobile.png"
     }
   },
-  "brandWarnings": [],
+  "brandWarnings": [
+    "BRAND NOTE: no custom public/og.jpg — the platform will serve the og.grok.me placeholder. Custom cards are the default for games of every kind (DOM board/word games included), whimsical apps, creative tools, and brand-forward pages — only plain utilities (converters, CRUD trackers, admin dashboards) keep the placeholder. If this app is not a plain utility, finish the brand-asset pass per /workspace/.grok/skills/og/SKILL.md."
+  ],
   "authWarnings": [],
-  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+  "verdictFile": "/home/darshan/Documents/GitHub/AWSCloudClubAtria/upi-on-aws/screenshots/app-builder-preview.json"
 }

@@ -169,8 +169,11 @@ export function HelpPanel() {
         <li>Drag — orbit</li>
         <li>Scroll — zoom / story</li>
         <li>Click — inspect</li>
+        <li>Space — play / pause sim</li>
+        <li>M — follow camera</li>
+        <li>[ / ] — speed controls</li>
+        <li>L — light / dark theme</li>
         <li>1–6 — camera views</li>
-        <li>Space — simulate payment</li>
         <li>H — high traffic</li>
         <li>F — failure test</li>
         <li>T — trace</li>
@@ -189,7 +192,7 @@ export function TransactionConsole() {
   if (!ui) return null;
   if (sim === "idle" && tx.status === "IDLE") return null;
   return (
-    <aside className="hit hud-panel absolute right-4 bottom-24 z-20 w-[min(calc(100vw-2rem),320px)] p-3">
+    <aside className="hit hud-panel absolute right-4 bottom-36 sm:bottom-32 z-20 w-[min(calc(100vw-2rem),320px)] p-3">
       <p className="kicker mb-2">Live transaction</p>
       <p className="tabular text-[15px] text-fg">{tx.id}</p>
       <p className="tabular mt-1 text-[11px] tracking-[0.16em] text-data uppercase">{tx.status}</p>
@@ -226,10 +229,12 @@ export function StoryCaption() {
   if (!beat) return null;
   if (explore && i === 0) return null;
   return (
-    <div className="hit pointer-events-none absolute bottom-24 left-1/2 z-20 hidden w-[min(520px,calc(100vw-2rem))] -translate-x-1/2 text-center md:block">
-      <p className="kicker">{beat.kicker}</p>
-      <h2 className="mt-1 text-[28px] font-medium tracking-[-0.03em]">{beat.title}</h2>
-      <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-pretty text-muted">{beat.body}</p>
+    <div className="hit pointer-events-none absolute bottom-36 left-1/2 z-20 hidden w-[min(520px,calc(100vw-2rem))] -translate-x-1/2 text-center md:block">
+      <div className="hud-panel p-4 rounded-lg shadow-lg">
+        <p className="kicker">{beat.kicker}</p>
+        <h2 className="mt-1 text-[24px] font-medium tracking-[-0.03em]">{beat.title}</h2>
+        <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-pretty text-muted">{beat.body}</p>
+      </div>
     </div>
   );
 }
