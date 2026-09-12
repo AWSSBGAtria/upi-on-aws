@@ -22,12 +22,14 @@ export default function CanvasRoot() {
       }}
       camera={{ fov: 42, near: 0.12, far: 280, position: [0, 36, 62] }}
       onCreated={({ gl, scene }) => {
-        gl.setClearColor("#05070c");
+        const isLight = useExperienceStore.getState().theme === "light";
+        const bg = isLight ? "#eef2f6" : "#05070c";
+        gl.setClearColor(bg);
         gl.toneMapping = ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.12;
         gl.outputColorSpace = SRGBColorSpace;
         gl.shadowMap.type = PCFShadowMap;
-        scene.background = new Color("#05070c");
+        scene.background = new Color(bg);
         useExperienceStore.getState().setCanvasReady(true);
       }}
       onPointerMissed={() => {

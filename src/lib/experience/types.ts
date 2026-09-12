@@ -22,6 +22,8 @@ export type Phase = "loading" | "intro" | "title" | "ready";
 
 export type NavId = "explore" | "simulate" | "architecture" | "about";
 
+export type Theme = "dark" | "light";
+
 export type SimMode = "idle" | "payment" | "high-traffic" | "failure" | "trace";
 
 export type ViewId =

@@ -9,14 +9,14 @@ import {
   type MeshStandardMaterial,
   Object3D,
 } from "three";
-import { AZ_META, CF_POPS, LAYERS, NODES, POS } from "@/lib/experience/architecture";
+import { AZ_META, CF_POPS, LAYERS, POS } from "@/lib/experience/architecture";
 import { getQuality } from "@/lib/experience/quality";
 import { runtime } from "@/lib/experience/runtime";
 import { useExperienceStore } from "@/lib/experience/store";
 import type { NodeId } from "@/lib/experience/types";
 
-function usePulse(id: string) {
-  return () => runtime.nodePulse[id] ?? 0;
+function getNodePulse(id: string) {
+  return runtime.nodePulse[id] ?? 0;
 }
 
 function Hit({
@@ -54,26 +54,32 @@ function Hit({
 function Pedestal({
   w,
   d,
-  color = "#141920",
-  emissive = "#1c2734",
+  color,
+  emissive,
 }: {
   w: number;
   d: number;
   color?: string;
   emissive?: string;
 }) {
+  const theme = useExperienceStore((s) => s.theme);
+  const isLight = theme === "light";
+  const defColor = isLight ? "#e2e8f0" : "#141920";
+  const defEmissive = isLight ? "#cbd5e1" : "#1c2734";
+  const baseColor = color ?? defColor;
+  const baseEmissive = emissive ?? defEmissive;
   return (
     <group>
       <mesh castShadow receiveShadow position={[0, 0.1, 0]}>
         <boxGeometry args={[w, 0.2, d]} />
-        <meshStandardMaterial color={color} metalness={0.72} roughness={0.38} />
+        <meshStandardMaterial color={baseColor} metalness={0.72} roughness={0.38} />
       </mesh>
       <mesh position={[0, 0.21, 0]}>
         <boxGeometry args={[w - 0.18, 0.02, d - 0.18]} />
         <meshStandardMaterial
-          color="#0b0e13"
-          emissive={emissive}
-          emissiveIntensity={0.25}
+          color={isLight ? "#f1f5f9" : "#0b0e13"}
+          emissive={baseEmissive}
+          emissiveIntensity={isLight ? 0.15 : 0.25}
           metalness={0.4}
           roughness={0.5}
         />
@@ -84,17 +90,19 @@ function Pedestal({
 
 export function Campus() {
   const labels = getQuality(useExperienceStore((s) => s.performanceMode)).labels;
+  const theme = useExperienceStore((s) => s.theme);
+  const isLight = theme === "light";
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 2]} receiveShadow>
         <circleGeometry args={[54, 64]} />
-        <meshStandardMaterial color="#07090d" metalness={0.35} roughness={0.82} />
+        <meshStandardMaterial color={isLight ? "#e2e8f0" : "#07090d"} metalness={0.35} roughness={0.82} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 4]}>
         <ringGeometry args={[31.4, 31.7, 80]} />
         <meshStandardMaterial
-          color="#1a2430"
-          emissive="#2a3c52"
+          color={isLight ? "#cbd5e1" : "#1a2430"}
+          emissive={isLight ? "#94a3b8" : "#2a3c52"}
           emissiveIntensity={0.35}
           transparent
           opacity={0.7}
@@ -107,7 +115,7 @@ export function Campus() {
         [-6, 8].map((z) => (
           <mesh key={`${x}-${z}`} position={[x * 1.7, 1.1, z]} castShadow>
             <boxGeometry args={[3.2, 2.2, 6]} />
-            <meshStandardMaterial color="#0c1016" metalness={0.6} roughness={0.55} />
+            <meshStandardMaterial color={isLight ? "#e2e8f0" : "#0c1016"} metalness={0.6} roughness={0.55} />
           </mesh>
         )),
       )}
@@ -143,6 +151,9 @@ function AzPad({
 }) {
   const mat = useRef<MeshStandardMaterial>(null);
   const edge = useRef<MeshStandardMaterial>(null);
+  const theme = useExperienceStore((s) => s.theme);
+  const isLight = theme === "light";
+
   useFrame(() => {
     const h = runtime.azHealth[azId];
     const fail = 1 - h;
@@ -152,8 +163,8 @@ function AzPad({
     }
     if (edge.current) {
       edge.current.emissiveIntensity = 0.35 + fail * 1.2 + Math.sin(runtime.time * 6) * fail * 0.4;
-      edge.current.color.set(h > 0.5 ? "#1a2734" : "#4a1214");
-      edge.current.emissive.set(h > 0.5 ? "#2a4a62" : "#ff3b3b");
+      edge.current.color.set(h > 0.5 ? (isLight ? "#cbd5e1" : "#1a2734") : "#4a1214");
+      edge.current.emissive.set(h > 0.5 ? (isLight ? "#94a3b8" : "#2a4a62") : "#ff3b3b");
     }
   });
   return (
@@ -162,10 +173,10 @@ function AzPad({
         <boxGeometry args={[9.6, 0.16, 38]} />
         <meshStandardMaterial
           ref={mat}
-          color="#10151c"
+          color={isLight ? "#e2e8f0" : "#10151c"}
           metalness={0.7}
           roughness={0.42}
-          emissive="#15202c"
+          emissive={isLight ? "#cbd5e1" : "#15202c"}
           emissiveIntensity={0.15}
         />
       </mesh>
@@ -173,8 +184,8 @@ function AzPad({
         <boxGeometry args={[9.6, 0.02, 38]} />
         <meshStandardMaterial
           ref={edge}
-          color="#1a2734"
-          emissive="#2a4a62"
+          color={isLight ? "#cbd5e1" : "#1a2734"}
+          emissive={isLight ? "#94a3b8" : "#2a4a62"}
           emissiveIntensity={0.3}
           transparent
           opacity={0.55}
@@ -185,7 +196,7 @@ function AzPad({
           position={[0, 0.28, 18.4]}
           fontSize={0.28}
           letterSpacing={0.14}
-          color="#8b96a4"
+          color={isLight ? "#475569" : "#8b96a4"}
           anchorX="center"
         >
           {`${code}  ${zone}`}
@@ -221,7 +232,7 @@ export function ClientLayer() {
   const group = useRef<Group>(null);
   useFrame(() => {
     if (!group.current) return;
-    const p = usePulse("client")();
+    const p = getNodePulse("client");
     group.current.scale.setScalar(1 + p * 0.04);
   });
   const xs = [-2.4, 0, 2.4];
